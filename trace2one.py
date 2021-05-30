@@ -17,7 +17,7 @@
  Example: to create a group of 10 zebras, call
  'trace2one.py baseoutUTM1.txt 10'; 10 single node mobility traces names
  baseoutUTM.n0 - baseoutUTM.n9 will be created.  Use cat to put them
- together should create a single trace file that can be read by ns-2.
+ together should create a single trace file that can be read by ONE.
 """
 
 import string
@@ -32,9 +32,8 @@ y_pos_n = []
 time_n = []
 z_pos_n = []
 
-
 def print_help_and_exit():
-    'Print a help message and exits'
+    ''' Print a help message and exits '''
     print(__doc__)
     sys.exit()  # Standard way to exit a python script
     return
@@ -58,7 +57,6 @@ def get_delta_xy(filename):
     file.close()
     return dist_list, direct_list
 
-
 def extract_position(line):
     ''' Extracts the position data from the raw data line  '''
     words = line.split()
@@ -72,23 +70,23 @@ def extract_position(line):
 # (i) d_direct[i] always corresponds to d_distance[i]
 # (ii) or using some random combination
 
-
 def get_delta_direction(direct_list):
-    'Calculate the delta direction'
+    ''' Calculate the delta direction '''
     dd = []
     for i in range(len(direct_list)):
         if i > 0:
             dd.append(direct_list[i]-direct_list[i-1])
     return dd
 
-
 def write_ns_trace(dist_list, dd, filename, filenum):
-    'Write the ns-2 trace file'
+    ''' Write the ONE-ns2 trace file '''
     max_speed = 0
     min_speed = 100
 
     file = open("input.txt", 'w')
+    # Format - startTime endTime minX maxX minY maxY minZ maxZ
     file.write("0 56000 0 1000 0 1000 0 0\n")
+    # choosing a random offset for the location record times
     offset = random.uniform(0, 200)
     for i in range(eval(filenum)):
         start_pos_x = random.uniform(0, 1000)
@@ -99,6 +97,7 @@ def write_ns_trace(dist_list, dd, filename, filenum):
         x_pos_n.append(start_pos_x)
         y_pos_n.append(start_pos_y)
         z_pos_n.append(start_pos_z)
+        
         current_x = start_pos_x
         current_y = start_pos_y
         current_direction = start_dir
@@ -110,7 +109,9 @@ def write_ns_trace(dist_list, dd, filename, filenum):
             if(temp > 56000):
                 break
             move_distance = random.choice(dist_list)
-
+            
+            # moving by choosing a random element 
+            # from the extracted distances and directions
             next_x = current_x + move_distance * math.cos(current_direction)
             next_y = current_y + move_distance * math.sin(current_direction)
 
@@ -119,7 +120,8 @@ def write_ns_trace(dist_list, dd, filename, filenum):
             speed = move_distance / 8
             max_speed = max(max_speed, speed)
             min_speed = min(min_speed, speed)
-            # boundary effects
+            
+            # boundary conditions
             ovrflow = 0
             if next_x > 1000:
                 ovrflow = next_x - 1000
@@ -145,7 +147,7 @@ def write_ns_trace(dist_list, dd, filename, filenum):
     return
 
 def make_ext_filename(filename, n):
-    'Replace file by file.extn'
+    ''' Replace file by file.extn '''
     new_fn = filename.replace("txt", "n"+str(n))
     return new_fn
 
