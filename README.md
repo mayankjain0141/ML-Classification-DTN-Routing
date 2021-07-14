@@ -32,13 +32,20 @@ We simulated the network using ONE Simulator.
 For simulating the movement of the network nodes we used the ZebraNet-UTM1 mobility traces. 
 A major roadblock was that the UTM1 format of the traces wasn't compatible with ONE Simulator.
 
-I wrote `trace2one.py` script to do the conversion.
+I wrote `trace2one.py` script to do the conversion. Apart from this, I wrote some custom classes for ONE to extract relevant features.
 
 To generate the training data, we select two routers - Epidemic and ProPHET Routers.
 
-## 
+## Feature selection 
+We chose the following features for our classifiers.
+1. Time index in the epoch  
+2. Source node  
+3. Destination node  
+4. Region code for source node  
+5. Region code for destination node  
+6. Message delivery status  
 
-
+The classifier returns the output labels corresponding to each node indicating if the message was forwarded to this node.  
 
 ## Model Evaluation
 
