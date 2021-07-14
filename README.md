@@ -36,7 +36,7 @@ I wrote `trace2one.py` script to do the conversion. Apart from this, I wrote som
 
 To generate the training data, we select two routers - Epidemic and ProPHET Routers.
 
-## Feature selection 
+## Model Features and Labels
 We chose the following features for our classifiers.
 1. Time index in the epoch  
 2. Source node  
