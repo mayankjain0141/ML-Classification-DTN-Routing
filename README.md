@@ -44,7 +44,12 @@ We chose the following features for our classifiers.
 4. Region code for source node  
 5. Region code for destination node  
 6. Message delivery status  
-
+  
+  
+  ![node regions](results/node_regions.png)  
+    
+  We use k-means clustering to assign a region to each node. 
+  
 The classifier returns the output labels corresponding to each node indicating if the message was forwarded to this node.  
 
 ## Model Evaluation
