@@ -6,7 +6,7 @@ Delay Tolerant Networks(DTNs) are networks where the link connectivity
 may be frequently disrupted. So, we can't rely on all nodes in the 
 network to be known at any moment to make routing decisions.
 
-Current methods to resolve this are based on Epidemic Routing, which
+Current routing methods are based on Epidemic Routing, which
 is very resource hungry. This work explores machine learning to make
 improved routing decisions and reduce overhead through training the model on the network
 history.
@@ -17,8 +17,8 @@ We model the routing issue as a multi-label classification problem.
 Here, we classify the nodes to which the message will be forwarded
 to till either it reaches the destination or it gets dropped.
 
-But this transforms the problem into multiple binary classification
-problems and doesnt take into account the interdependence between 
+But this transforms the problem into a binary classification
+problem for each node and doesnt take into account the interdependence between 
 the outputs. We solve the interdependence issue by using Ensemble Classifier 
 Chains(ECC).
 
