@@ -29,12 +29,12 @@ performance.
 ## Data preparation
 
 We simulated the network using ONE Simulator. 
-For simulating the movement of the network nodes we used the ZebraNet-UTM1 mobility traces. 
-A major roadblock was that the UTM1 format of the traces wasn't compatible with ONE Simulator.
+For simulating the movement of the network nodes we used the ZebraNet-UTM1 mobility traces.   
+A major roadblock was to generate the movement data from the traces, to a format compatible with ONE Simulator. 
+I wrote `trace2one.py` script to do the conversion. Apart from this, 
+I wrote some custom classes for ONE to extract relevant features. 
 
-I wrote `trace2one.py` script to do the conversion. Apart from this, I wrote some custom classes for ONE to extract relevant features.
-
-To generate the training data, we select two routers - Epidemic and ProPHET Routers.
+To generate the training data, we select two routers - Epidemic and ProPHET Routers, with the network configurations in `configurations.txt`.
 
 ## Model Features and Labels
 We chose the following features for our classifiers.
@@ -48,9 +48,9 @@ We chose the following features for our classifiers.
   
   ![node regions](results/node_regions.png)  
     
-  We use k-means clustering to assign a region to each node. 
+  We use `k-means clustering` to assign a region to each node. The optimum number of clusters was determined used the `k-elbow` method. 
   
-The classifier returns the output labels corresponding to each node indicating if the message was forwarded to this node.  
+The classifier returns the output labels corresponding to each node indicating if the message was forwarded to this node(`0/1`).  
 
 ## Model Evaluation
 
